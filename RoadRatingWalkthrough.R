@@ -1,10 +1,13 @@
 require(RCurl)
+library(gsheet)
 library(dplyr)
 library(ggplot2)
 
+??gsheet
+
 #import and read data from Google Spreadsheet
-myCsv <- getURL("https://docs.google.com/spreadsheets/d/1PUZlBLgRGI-6hnDF_hLcn8hmxksIBIp6VZEncgt52wk/pub?output=csv")
-RoadRatings <- read.csv(textConnection(myCsv), stringsAsFactors = FALSE)
+URL <- "https://docs.google.com/spreadsheets/d/1PUZlBLgRGI-6hnDF_hLcn8hmxksIBIp6VZEncgt52wk/pub?output=csv"
+RoadRatings <- gsheet2tbl(URL)
 
 #Ratings in the City should only be from 1-10, anything else is a type or inaccurate, so filter out
 RoadRatings <- filter(RoadRatings, Overall <=10 & Overall >= 1)

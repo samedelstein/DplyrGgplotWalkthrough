@@ -11,13 +11,14 @@ This is a walkthrough of creating a quick report where the requirement includes 
 require(RCurl) #helps read data
 library(dplyr) #helps clean data
 library(ggplot2) #helps visualize data
+library(gsheet) #read in google sheet data
 ```
 
 Import and read data from Google Spreadsheet
 
 ```{r}
-myCsv <- getURL("https://docs.google.com/spreadsheets/d/1PUZlBLgRGI-6hnDF_hLcn8hmxksIBIp6VZEncgt52wk/pub?output=csv")
-RoadRatings <- read.csv(textConnection(myCsv), stringsAsFactors = FALSE)
+URL <- "https://docs.google.com/spreadsheets/d/1PUZlBLgRGI-6hnDF_hLcn8hmxksIBIp6VZEncgt52wk/pub?output=csv"
+RoadRatings <- gsheet2tbl(URL)
 ```
 
 Ratings in the City should only be from 1-10, anything else is a type or inaccurate, so filter out
